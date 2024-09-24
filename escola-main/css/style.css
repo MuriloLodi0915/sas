@@ -12,6 +12,7 @@
 }
 
 
+
 /* navbar */
 .header {
   position: fixed;
@@ -300,7 +301,12 @@
   width: 100%;
   height: 800px; 
   object-fit: cover;
+  transform: translateY(0);
+  transition: transform 0.5s ease-in-out;
+}
 
+.page1-image-container:hover .page1-image {
+  transform: translateY(-20px);
 }
 
 .page2 {
@@ -349,70 +355,139 @@
 
 
 
-.apres {   /*container dos 7 */
+.apres {
+  margin-top: 490px;
   display: flex;
-  align-items: center;
-  overflow-x: scroll;
-  margin-top: 550px;
-  /* border-style: solid; */
-  width: 100%;
-  white-space: nowrap;
+  flex-wrap: nowrap; /* Garante que os cards fiquem em uma linha só */
+  overflow-x: hidden; /* Remove a barra de rolagem visível */
+  scroll-behavior: smooth; /* Faz a rolagem ser suave */
+  position: relative; /* Para posicionar as setas */
 }
 
-
-.apres::-webkit-scrollbar {
-  width: 8px;
+.wrap {
+  flex: 0 0 auto; /* Garante que os cards não encolham e mantenham seu tamanho */
 }
 
-.apres::-webkit-scrollbar-track {
-  background: transparent;
-       
-}
-
-.apres::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 14px;
-}
-
-.curso1, .curso2, .curso3, .curso4, .curso5, .curso6, .curso7 {
-  display: inline-block;
-  justify-content: center;
-  margin-left: 28px;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  border-top: 0;
-  border-bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(25px);
-  width: 341.25px;
-  height: 520px;
-  border-radius: 8px;
-  flex-shrink: 0;
-
-
-}
-
-.curso7 {
-  margin-right: 28px;
-}
-
-.navegacao-esquerda, .navegacao-direita {
-  position: absolute;
-  top: 80%;
-  font-size: 50px;
+.scroll-btn {
+  position: sticky; 
+  top: 0; 
+  margin-top: 260px;
+  background-color: black;
+  height: 5rem; 
+  color: white; 
+  border: none;
+  font-size: 2rem; /* Tamanho das d setas */
   cursor: pointer;
-  z-index: 1;
+  z-index: 10;
+  padding: 10px; /* Adiciona um pouco de espaçamento ao redor das setas */
+  border-radius: 5px;
 }
 
-.navegacao-direita, .navegacao-direita {
-  right: 0;
+.scroll-btn.left {
+  left: 2px; /* Posição da seta esquerda */
 }
 
-.navegacao-esquerda:hover, .navegacao-direita:hover {
-  color: #fff;
+.scroll-btn.right {
+
+  right: 2px; /* Posição da seta direita */
 }
+
+.wrap {
+  margin: 2rem;
+  transform-style: preserve-3d;
+  transform: perspective(100rem);
+  cursor: pointer;
+}
+
+.container {
+  --rX: 0;
+  --rY: 0;
+  --bX: 50%;
+  --bY: 80%;
+
+  width: 28rem;
+  height: 34rem;
+  border: 1px solid var(--background-color);
+  border-radius: 1.6rem;
+  padding: 4rem;
+
+  display: flex;
+  align-items: flex-end;
+
+  position: relative;
+  transform: rotateX(calc(var(--rX) * 1deg)) rotateY(calc(var(--rY) * 1deg));
+
+  background: rgba(119, 116, 116, 0.336);
+  backdrop-filter: blur(10px);
+  
+
+  transition: transform .2s 1s;
+}
+
+.container::before,
+.container::after {
+  content: "";
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #fff;
+  position: absolute;
+  z-index: 2;
+  opacity: .3;
+  transition: .6s;
+}
+
+.container::before {
+  top: 2rem;
+  right: 2rem;
+  border-bottom-width: 0;
+  border-left-width: 0;
+}
+
+.container::after {
+  bottom: 2rem;
+  left: 2rem;
+  border-top-width: 0;
+  border-right-width: 0;
+}
+
+.container--active {
+  transition: none;
+}
+
+.container--2 {
+  filter: hue-rotate(80deg) saturate(140%);
+}
+
+.container--3 {
+  filter: hue-rotate(160deg) saturate(140%);
+}
+
+.container p {
+  color: hsla(0, 0%, 100%, .6);
+  font-size: 2.2rem;
+}
+
+.wrap:hover .container::before,
+.wrap:hover .container::after {
+  width: calc(100% - 4rem);
+  height: calc(100% - 4rem);
+}
+
+@media only screen and (max-width: 768px) {
+  .scroll-btn {
+    display: none;
+  }
+
+  .apres {
+    overflow-x: scroll;
+  }
+
+  .container{
+    margin-top: 80px;
+  }
+}
+
+
 
 
 
@@ -420,7 +495,7 @@
 /* responsitividade */
 @media (max-width: 768px) {
   .page1 {
-    height: 1000px;
+    height: 1150px;
     padding-bottom: 40px; 
     width: 100vw;
   }
@@ -491,7 +566,7 @@
 }
 
 .footer-info a:hover {
-  color: #666; /* darker gray text on hover */
+  color: #a1a1a1; /* darker gray text on hover */
 }
 
 .social-links {
@@ -508,7 +583,7 @@
 }
 
 .social-links a:hover {
-  color: #00000000; /* darker gray text on hover */
+  color: #8f8f8f00; /* darker gray text on hover */
 }
 
 .social-links i {
@@ -567,7 +642,3 @@
     font-size: 10px;
   }
 }
-
-
-
-
